@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Дарья Дериглазова](https://up.htmlacademy.ru/javascript-individual/2/user/2488447).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Сударев](https://htmlacademy.ru/profile/id1152185).
 
 ---
 
