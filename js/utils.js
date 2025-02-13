@@ -22,4 +22,6 @@ const getRandomUniqueIdGenerator = (min, max) => {
   };
 };
 
-export { getRandomInteger, getRandomUniqueIdGenerator };
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export { getRandomInteger, getRandomUniqueIdGenerator, isEscapeKey };

@@ -1,3 +1,5 @@
+import { openBigPhoto } from './create-big-picture.js';
+
 const createMiniatures = (data) => {
   const picturesElement = document.querySelector('.pictures');
   const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
@@ -13,6 +15,12 @@ const createMiniatures = (data) => {
     const pictureInfoElement = pictureCloneElement.querySelector('.picture__info');
     pictureInfoElement.querySelector('.picture__likes').textContent = likes;
     pictureInfoElement.querySelector('.picture__comments').textContent = comments.length;
+
+
+    pictureCloneElement.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      openBigPhoto({ photo, description, likes, comments });
+    });
 
     listPicturesFragment.append(pictureCloneElement);
   });
