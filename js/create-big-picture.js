@@ -8,6 +8,12 @@ const commentTotalCountElement = bigPictureElement.querySelector('.social__comme
 const socialCommentsElement = bigPictureElement.querySelector('.social__comments');
 const socialCaptionElement = bigPictureElement.querySelector('.social__caption');
 const closeButton = bigPictureElement.querySelector('#picture-cancel');
+const commentsLoaderElement = bigPictureElement.querySelector('.social__comments-loader');
+
+
+const COMMENTS_PER_PHOTO = 5;
+let loadedNewComments = 0;
+let allComments = [];
 
 const closeBigPicture = () => {
   bigPictureElement.classList.add('hidden');
@@ -34,8 +40,10 @@ const addDataToPhoto = (data) => {
   bigPictureImg.src = data.photo;
   bigPictureImg.alt = data.description;
   likesCountElement.textContent = data.likes;
-  commentShownCountElement.textContent = 0; // пока не показываем
   commentTotalCountElement.textContent = data.comments.length;
+  allComments = data.comments;
+  loadedNewComments = 0;
+  commentShownCountElement.textContent = loadedNewComments;
   socialCaptionElement.textContent = data.description;
 };
 
@@ -52,14 +60,21 @@ const renderСomment = (comment) => {
   return newCommentElement;
 };
 
-const renderСomments = (commentsData) => {
-  commentsData.forEach((comment) => {
-    bigPictureElement.querySelector('.social__comment-count').classList.add('hidden');
-    bigPictureElement.querySelector('.comments-loader').classList.add('hidden');
-
+const renderComments = () => {
+  const commentsToShow = allComments.slice(loadedNewComments, loadedNewComments + COMMENTS_PER_PHOTO);
+  commentsToShow.forEach((comment) => {
     const commentElement = renderСomment(comment);
     socialCommentsElement.appendChild(commentElement);
   });
+
+  loadedNewComments += commentsToShow.length;
+  commentShownCountElement.textContent = loadedNewComments;
+
+  if (loadedNewComments >= allComments.length) {
+    commentsLoaderElement.classList.add('hidden');
+  } else {
+    commentsLoaderElement.classList.remove('hidden');
+  }
 };
 
 const openBigPhoto = (picture) => {
@@ -68,7 +83,9 @@ const openBigPhoto = (picture) => {
   closingEventsPhoto();
   addDataToPhoto(picture);
   clearComments();
-  renderСomments(picture.comments);
+  renderComments();
+
+  commentsLoaderElement.addEventListener('click', renderComments);
 };
 
 export { openBigPhoto };
