@@ -8,13 +8,14 @@ const SCALE_MIN = 25;
 const SCALE_MAX = 100;
 const SCALE_DEFAULT = 100;
 
-// Храним текущее значение масштаба (число)
-let currentScale = SCALE_DEFAULT; // 100
+// Храним текущее значение масштаба
+let currentScale = SCALE_DEFAULT;
 
 // Функция, чтобы отобразить scale в интерфейсе
 const updateScale = () => {
-  scaleValueInput.value = `${currentScale}%`;
+  scaleValueInput.setAttribute('value', `${currentScale}%`); // Используем setAttribute
   imgElement.style.transform = `scale(${currentScale / 100})`;
+  // console.log(scaleValueInput.value);
 };
 
 // Уменьшаем масштаб

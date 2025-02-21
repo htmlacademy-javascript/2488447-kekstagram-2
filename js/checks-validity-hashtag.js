@@ -3,7 +3,7 @@ const MAX_SYMBOLS = 20;
 
 let errorMessage = '';
 
-const error = () => errorMessage;
+const getError = () => errorMessage;
 
 
 const isHashtagsValid = (value) => {
@@ -50,8 +50,8 @@ const isHashtagsValid = (value) => {
       return false;
     }
   }
-
-  return true; // Все проверки пройдены
+  // Все проверки пройдены
+  return true;
 };
 
-export { error, isHashtagsValid };
+export { getError, isHashtagsValid};

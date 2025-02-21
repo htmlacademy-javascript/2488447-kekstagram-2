@@ -37,7 +37,7 @@ const clearComments = () => {
 };
 
 const addDataToPhoto = (data) => {
-  bigPictureImg.src = data.photo;
+  bigPictureImg.src = data.url;
   bigPictureImg.alt = data.description;
   likesCountElement.textContent = data.likes;
   commentTotalCountElement.textContent = data.comments.length;
@@ -55,7 +55,7 @@ const renderСomment = (comment) => {
 
   imgComment.src = comment.avatar;
   imgComment.alt = comment.name;
-  textComment.textContent = comment.comment;
+  textComment.textContent = comment.message;
 
   return newCommentElement;
 };
