@@ -33,9 +33,9 @@ const initSlider = () => {
 
   // Слушаем событие обновления слайдера
   sliderElement.noUiSlider.on('update', () => {
-    const sliderValue = sliderElement.noUiSlider.get();
-    effectLevelValue.value = sliderValue;
-    applyEffect(sliderValue);
+    const value = sliderElement.noUiSlider.get(); // Получаем текущее значение слайдера
+    effectLevelValue.value = value; // Обновляем значение в input
+    applyEffect(value); // Применяем эффект
   });
 };
 
