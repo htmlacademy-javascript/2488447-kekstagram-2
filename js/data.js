@@ -123,7 +123,4 @@ const EFFECTS = {
   },
 };
 
-export { getDataArrayMiniatures };
-export { EFFECTS };
-
-
+export { getDataArrayMiniatures, EFFECTS };
