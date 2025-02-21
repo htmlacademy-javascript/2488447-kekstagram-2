@@ -1,27 +1,23 @@
-const getRandomInteger = (min, max) => {
-  const lowerBound = Math.ceil(Math.min(min, max));
-  const upperBound = Math.floor(Math.max(min, max));
-  const randomValue = Math.random() * (upperBound - lowerBound + 1) + lowerBound;
-  return Math.floor(randomValue);
-};
-
-const getRandomUniqueIdGenerator = (min, max) => {
-  const usedIds = [];
-
-  return () => {
-    let newId = getRandomInteger(min, max);
-    if (usedIds.length >= (max - min + 1)) {
-      console.error(`Все числа в диапазоне от ${min} до ${max} были использованы.`);
-      return null;
-    }
-    while (usedIds.includes(newId)) {
-      newId = getRandomInteger(min, max);
-    }
-    usedIds.push(newId);
-    return newId;
-  };
-};
+import { DEBOUNCE_TIME } from './data.js';
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export { getRandomInteger, getRandomUniqueIdGenerator, isEscapeKey };
+// Перемешивание массива
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+    [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
+  }
+  return array;
+};
+
+// Функция debounce для устранения дребезга
+const debounce = (callback, timeoutDelay = DEBOUNCE_TIME) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export { isEscapeKey, shuffleArray, debounce };

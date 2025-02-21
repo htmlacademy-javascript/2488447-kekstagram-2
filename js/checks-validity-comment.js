@@ -2,7 +2,7 @@ const MAX_COMMENT_LENGTH = 140;
 
 let commentErrorMessage = '';
 
-const commentError = () => commentErrorMessage;
+const getCommentError = () => commentErrorMessage;
 
 const isCommentValid = (value) => {
   commentErrorMessage = '';
@@ -21,4 +21,4 @@ const isCommentValid = (value) => {
   return true;
 };
 
-export { commentError, isCommentValid };
+export { getCommentError, isCommentValid };

@@ -12,7 +12,7 @@ let currentEffect = EFFECTS.none;
 
 // Применяем CSS-фильтр к фото
 const applyEffect = (value) => {
-  if (currentEffect.name === 'none') { // сперва проверяем выбран ли какой-то эффект
+  if (currentEffect.name === 'none') {
     imgElement.style.filter = 'none';
     return;
   }
@@ -33,9 +33,9 @@ const initSlider = () => {
 
   // Слушаем событие обновления слайдера
   sliderElement.noUiSlider.on('update', () => {
-    const value = sliderElement.noUiSlider.get(); // Получаем текущее значение слайдера
-    effectLevelValue.value = value; // Обновляем значение в input
-    applyEffect(value); // Применяем эффект
+    const value = sliderElement.noUiSlider.get();
+    effectLevelValue.setAttribute('value', value);
+    applyEffect(value);
   });
 };
 
@@ -64,7 +64,7 @@ const onEffectChange = (evt) => {
   if (currentEffect.name === 'none') {
     sliderContainer.classList.add(HIDDEN_CLASS);
     imgElement.style.filter = 'none';
-    effectLevelValue.value = '';
+    effectLevelValue.setAttribute('value', '');
   } else {
     sliderContainer.classList.remove(HIDDEN_CLASS);
     updateSliderOptions(currentEffect);
@@ -81,11 +81,10 @@ const resetEffects = () => {
 
   currentEffect = EFFECTS.none;
   imgElement.style.filter = 'none';
-  effectLevelValue.value = '';
+  effectLevelValue.setAttribute('value', '');
   sliderContainer.classList.add(HIDDEN_CLASS);
 };
 
-// Инициализация
 const initEffects = () => {
   sliderContainer.classList.add(HIDDEN_CLASS);
   initSlider();
