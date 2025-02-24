@@ -1,16 +1,15 @@
 import { openBigPhoto } from './create-big-picture.js';
 
-const createMiniatures = (data) => {
-  const picturesElement = document.querySelector('.pictures');
+const createMiniatures = (container, data) => {
   const pictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
 
   const listPicturesFragment = document.createDocumentFragment();
 
-  data.forEach(({photo, description, likes, comments}) => {
+  data.forEach(({url, description, likes, comments}) => {
     const pictureCloneElement = pictureTemplateElement.cloneNode(true);
 
     const pictureImgElement = pictureCloneElement.querySelector('.picture__img');
-    pictureImgElement.src = photo;
+    pictureImgElement.src = url;
     pictureImgElement.alt = description;
     const pictureInfoElement = pictureCloneElement.querySelector('.picture__info');
     pictureInfoElement.querySelector('.picture__likes').textContent = likes;
@@ -19,12 +18,12 @@ const createMiniatures = (data) => {
 
     pictureCloneElement.addEventListener('click', (evt) => {
       evt.preventDefault();
-      openBigPhoto({ photo, description, likes, comments });
+      openBigPhoto({ url, description, likes, comments });
     });
 
     listPicturesFragment.append(pictureCloneElement);
   });
-  picturesElement.append(listPicturesFragment);
+  container.append(listPicturesFragment);
 };
 
 export { createMiniatures };
