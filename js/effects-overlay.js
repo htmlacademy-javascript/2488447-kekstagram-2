@@ -34,8 +34,14 @@ const initSlider = () => {
   // Слушаем событие обновления слайдера
   sliderElement.noUiSlider.on('update', () => {
     const value = sliderElement.noUiSlider.get();
-    effectLevelValue.setAttribute('value', value);
-    applyEffect(value);
+    let formattedValue;
+    if (Number.isInteger(parseFloat(value))) {
+      formattedValue = parseFloat(value).toString(); // Преобразуем в строку без дробной части
+    } else {
+      formattedValue = parseFloat(value).toFixed(1); // Округляем до одного знака после запятой
+    }
+    effectLevelValue.setAttribute('value', formattedValue);
+    applyEffect(formattedValue);
   });
 };
 
