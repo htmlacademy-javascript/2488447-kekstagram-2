@@ -9,6 +9,7 @@ const effectLevelValue = sliderContainer.querySelector('.effect-level__value');
 const HIDDEN_CLASS = 'hidden';
 
 let currentEffect = EFFECTS.none;
+let sliderInitialized = false;
 
 // Применяем CSS-фильтр к фото
 const applyEffect = (value) => {
@@ -21,40 +22,45 @@ const applyEffect = (value) => {
 
 // Инициализируем noUiSlider, задаем диапазон значений, начальное значение и шаг.
 const initSlider = () => {
-  noUiSlider.create(sliderElement, {
-    range: {
-      min: currentEffect.min,
-      max: currentEffect.max
-    },
-    start: currentEffect.start,
-    step: currentEffect.step,
-    connect: 'lower'
-  });
+  if (!sliderInitialized) {
+    noUiSlider.create(sliderElement, {
+      range: {
+        min: currentEffect.min,
+        max: currentEffect.max
+      },
+      start: currentEffect.start,
+      step: currentEffect.step,
+      connect: 'lower'
+    });
 
-  // Слушаем событие обновления слайдера
-  sliderElement.noUiSlider.on('update', () => {
-    const value = sliderElement.noUiSlider.get();
-    let formattedValue;
-    if (Number.isInteger(parseFloat(value))) {
-      formattedValue = parseFloat(value).toString(); // Преобразуем в строку без дробной части
-    } else {
-      formattedValue = parseFloat(value).toFixed(1); // Округляем до одного знака после запятой
-    }
-    effectLevelValue.setAttribute('value', formattedValue);
-    applyEffect(formattedValue);
-  });
+    // Слушаем событие обновления слайдера
+    sliderElement.noUiSlider.on('update', () => {
+      const value = sliderElement.noUiSlider.get();
+      let formattedValue;
+      if (Number.isInteger(parseFloat(value))) {
+        formattedValue = parseFloat(value).toString(); // Преобразуем в строку без дробной части
+      } else {
+        formattedValue = parseFloat(value).toFixed(1); // Округляем до одного знака после запятой
+      }
+      effectLevelValue.setAttribute('value', formattedValue);
+      applyEffect(formattedValue);
+    });
+    sliderInitialized = true;
+  }
 };
 
 //обновляем параметры слайдера в зависимости от выбранного эффекта.
 const updateSliderOptions = (effect) => {
-  sliderElement.noUiSlider.updateOptions({
-    range: {
-      min: effect.min,
-      max: effect.max
-    },
-    start: effect.start,
-    step: effect.step
-  });
+  if (sliderInitialized) {
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: effect.min,
+        max: effect.max
+      },
+      start: effect.start,
+      step: effect.step
+    });
+  }
 };
 
 // Обработка изменения эффекта
@@ -81,6 +87,7 @@ const onEffectChange = (evt) => {
 const resetEffects = () => {
   if (sliderElement.noUiSlider) {
     sliderElement.noUiSlider.destroy();
+    sliderInitialized = false;
   }
 
   effectsListElement.removeEventListener('change', onEffectChange);

@@ -1,5 +1,5 @@
 import { Filters, RANDOM_PHOTO_MAX } from './data.js';
-import { shuffleArray, debounce } from './utils.js';
+import { shuffleArray } from './utils.js';
 
 const filtersContainer = document.querySelector('.img-filters');
 const filtersFormElement = filtersContainer.querySelector('.img-filters__form');
@@ -11,15 +11,13 @@ const getFilteredPhotos = (photos, filterType) => {
     case Filters.DEFAULT:
       return [...photos];
 
-    case Filters.RANDOM:
-    {
+    case Filters.RANDOM: {
       const shuffled = shuffleArray([...photos]);
       return shuffled.slice(0, RANDOM_PHOTO_MAX);
     }
 
     case Filters.DISCUSSED:
       return [...photos].sort((commentA, commentB) => commentB.comments.length - commentA.comments.length);
-
       //обеспечивает возврат исходного массива, если фильтр не распознан.
     default:
       return [...photos];
@@ -29,7 +27,7 @@ const getFilteredPhotos = (photos, filterType) => {
 const initFilters = (photos, cb) => {
   filtersContainer.classList.remove('img-filters--inactive');
 
-  filtersFormElement.addEventListener('click', debounce((evt) => {
+  filtersFormElement.addEventListener('click', (evt) => {
     if (!evt.target.classList.contains('img-filters__button')) {
       return;
     }
@@ -47,7 +45,7 @@ const initFilters = (photos, cb) => {
 
     // Передаём в колбэк, который отрисовывает миниатюры
     cb(filtered);
-  }));
+  });
 };
 
 export { initFilters };
