@@ -3,12 +3,12 @@ import { DEBOUNCE_TIME } from './data.js';
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 // Перемешивание массива
-const shuffleArray = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
+const shuffleArray = (arrays) => {
+  for (let i = arrays.length - 1; i > 0; i--) {
     const randomIndex = Math.floor(Math.random() * (i + 1));
-    [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
+    [arrays[i], arrays[randomIndex]] = [arrays[randomIndex], arrays[i]];
   }
-  return array;
+  return arrays;
 };
 
 // Функция debounce для устранения дребезга

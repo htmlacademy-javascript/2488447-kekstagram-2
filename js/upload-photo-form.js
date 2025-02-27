@@ -32,7 +32,7 @@ const onDataInputsKeydown = (evt) => {
 const onEscKeydown = (evt) => {
   if (isEscapeKey(evt) && !isInputFocused() && !isErrorModalOpen) {
     evt.preventDefault();
-    closePhotoEditor();
+    onClosePhotoEditor();
   }
 };
 
@@ -50,7 +50,7 @@ const unblockSubmitButton = () => {
 
 // удаляем слушатели событий
 const removeEventListeners = () => {
-  closeFormButton.removeEventListener('click', closePhotoEditor);
+  closeFormButton.removeEventListener('click', onClosePhotoEditor);
   document.removeEventListener('keydown', onEscKeydown);
   hashtagInputElement.removeEventListener('keydown', onDataInputsKeydown);
   commentInputElement.removeEventListener('keydown', onDataInputsKeydown);
@@ -59,7 +59,7 @@ const removeEventListeners = () => {
 
 // добавляем слушатели событий
 const addEventListeners = () => {
-  closeFormButton.addEventListener('click', closePhotoEditor);
+  closeFormButton.addEventListener('click', onClosePhotoEditor);
   document.addEventListener('keydown', onEscKeydown);
   hashtagInputElement.addEventListener('keydown', onDataInputsKeydown);
   commentInputElement.addEventListener('keydown', onDataInputsKeydown);
@@ -67,7 +67,7 @@ const addEventListeners = () => {
 };
 
 // функция закрытия формы
-function closePhotoEditor() {
+function onClosePhotoEditor() {
   pristine.reset();
   uploadFormElement.reset();
   uploadInputElement.value = '';
@@ -79,7 +79,7 @@ function closePhotoEditor() {
 }
 
 // функция открытия формы
-const openPhotoEditor = () => {
+const onUploadInputChange = () => {
   previewImgElement.src = '';
 
   const file = uploadInputElement.files?.[0];
@@ -118,7 +118,7 @@ async function onFormSubmit(evt) {
 
   try {
     await sendData(formData);
-    closePhotoEditor();
+    onClosePhotoEditor();
     showSuccess();
   } catch (err) {
     showError();
@@ -128,7 +128,7 @@ async function onFormSubmit(evt) {
 }
 
 const setUploadForm = () => {
-  uploadInputElement.addEventListener('change', openPhotoEditor);
+  uploadInputElement.addEventListener('change', onUploadInputChange);
 };
 
 export { setUploadForm };

@@ -1,12 +1,12 @@
 import { EFFECTS } from './data.js';
 
+const HIDDEN_CLASS = 'hidden';
+
 const imgElement = document.querySelector('.img-upload__preview img');
 const effectsListElement = document.querySelector('.effects__list');
 const sliderContainer = document.querySelector('.effect-level');
 const sliderElement = sliderContainer.querySelector('.effect-level__slider');
 const effectLevelValue = sliderContainer.querySelector('.effect-level__value');
-
-const HIDDEN_CLASS = 'hidden';
 
 let currentEffect = EFFECTS.none;
 let sliderInitialized = false;

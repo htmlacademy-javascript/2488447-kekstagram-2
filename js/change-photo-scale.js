@@ -1,12 +1,12 @@
-const smallerButtonElement = document.querySelector('.scale__control--smaller');
-const biggerButtonElement = document.querySelector('.scale__control--bigger');
-const scaleValueInput = document.querySelector('.scale__control--value');
-const imgElement = document.querySelector('.img-upload__preview img');
-
 const SCALE_STEP = 25;
 const SCALE_MIN = 25;
 const SCALE_MAX = 100;
 const SCALE_DEFAULT = 100;
+
+const smallerButtonElement = document.querySelector('.scale__control--smaller');
+const biggerButtonElement = document.querySelector('.scale__control--bigger');
+const scaleValueInput = document.querySelector('.scale__control--value');
+const imgElement = document.querySelector('.img-upload__preview img');
 
 // Храним текущее значение масштаба
 let currentScale = SCALE_DEFAULT;
@@ -15,7 +15,6 @@ let currentScale = SCALE_DEFAULT;
 const updateScale = () => {
   scaleValueInput.setAttribute('value', `${currentScale}%`); // Используем setAttribute
   imgElement.style.transform = `scale(${currentScale / 100})`;
-  // console.log(scaleValueInput.value);
 };
 
 // Уменьшаем масштаб

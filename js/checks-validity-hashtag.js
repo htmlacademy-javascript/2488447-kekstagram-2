@@ -14,10 +14,10 @@ const isHashtagsValid = (value) => {
     return true;
   }
 
-  const inputArray = inputText.split(/\s+/);
+  const inputArrays = inputText.split(/\s+/);
   const hashtagsSet = new Set();
 
-  for (const item of inputArray) {
+  for (const item of inputArrays) {
     // Проверки и установка сообщения об ошибке
     if (item === '#') {
       errorMessage = 'Хештег не может состоять только из одной решётки';
@@ -41,7 +41,7 @@ const isHashtagsValid = (value) => {
       errorMessage = `Длина одного хештега не должна превышать ${MAX_SYMBOLS} символов`;
       return false;
     }
-    if (inputArray.length > MAX_HASHTAGS) {
+    if (inputArrays.length > MAX_HASHTAGS) {
       errorMessage = `Нельзя указать более ${MAX_HASHTAGS} хештегов`;
       return false;
     }
