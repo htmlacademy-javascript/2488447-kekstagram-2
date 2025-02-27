@@ -9,7 +9,7 @@ const showModal = (templateSelector) => {
   document.body.append(container);
   isErrorModalOpen = true;
 
-  const closeModal = () => {
+  const onCloseModalClick = () => {
     container.remove();
     isErrorModalOpen = false;
     document.removeEventListener('keydown', onEscKeydown);
@@ -19,7 +19,7 @@ const showModal = (templateSelector) => {
   function onEscKeydown(evt) {
     if (isEscapeKey(evt) && isErrorModalOpen) {
       evt.preventDefault();
-      closeModal();
+      onCloseModalClick();
     }
   }
 
@@ -29,14 +29,14 @@ const showModal = (templateSelector) => {
   // Если клик вне блока .error__inner или .success__inner
   function onOutsideClick(evt) {
     if (!evt.target.closest('.error__inner') && !evt.target.closest('.success__inner')) {
-      closeModal();
+      onCloseModalClick();
     }
   }
 
   // Если есть кнопка для закрытия в шаблоне
   const closeButton = container.querySelector('.error__button') || container.querySelector('.success__button');
   if (closeButton) {
-    closeButton.addEventListener('click', closeModal);
+    closeButton.addEventListener('click', onCloseModalClick);
   }
 };
 

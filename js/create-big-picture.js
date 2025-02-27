@@ -1,5 +1,9 @@
 import {isEscapeKey} from './utils.js';
 
+const COMMENTS_PER_PHOTO = 5;
+let loadedNewComments = 0;
+let allComments = [];
+
 const bigPictureElement = document.querySelector('.big-picture');
 const bigPictureImg = bigPictureElement.querySelector('.big-picture__img img');
 const likesCountElement = bigPictureElement.querySelector('.likes-count');
@@ -10,12 +14,7 @@ const socialCaptionElement = bigPictureElement.querySelector('.social__caption')
 const closeButton = bigPictureElement.querySelector('#picture-cancel');
 const commentsLoaderElement = bigPictureElement.querySelector('.social__comments-loader');
 
-
-const COMMENTS_PER_PHOTO = 5;
-let loadedNewComments = 0;
-let allComments = [];
-
-const closeBigPicture = () => {
+const onCloseBigPicture = () => {
   bigPictureElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
 };
@@ -23,12 +22,12 @@ const closeBigPicture = () => {
 const onEscKeyPress = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeBigPicture();
+    onCloseBigPicture();
   }
 };
 
 const closingEventsPhoto = () => {
-  closeButton.addEventListener('click', closeBigPicture, {once: true});
+  closeButton.addEventListener('click', onCloseBigPicture, {once: true});
   document.addEventListener('keydown', onEscKeyPress, {once: true});
 };
 
@@ -60,7 +59,7 @@ const renderСomment = (comment) => {
   return newCommentElement;
 };
 
-const renderComments = () => {
+const onCommentsLoaderClick = () => {
   const commentsToShow = allComments.slice(loadedNewComments, loadedNewComments + COMMENTS_PER_PHOTO);
   commentsToShow.forEach((comment) => {
     const commentElement = renderСomment(comment);
@@ -83,9 +82,9 @@ const openBigPhoto = (picture) => {
   closingEventsPhoto();
   addDataToPhoto(picture);
   clearComments();
-  renderComments();
+  onCommentsLoaderClick();
 
-  commentsLoaderElement.addEventListener('click', renderComments);
+  commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 };
 
 export { openBigPhoto };
